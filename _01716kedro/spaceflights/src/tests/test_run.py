@@ -26,42 +26,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from setuptools import find_packages, setup
+"""
+This module contains an example test.
 
-entry_point = (
-    "space = spaceflights.run:run_package"
-)
+Tests should be placed in ``src/tests``, in modules that mirror your
+project's structure, and in files named test_*.py. They are simply functions
+named ``test_*`` which test a unit of logic.
+
+To run the tests, run ``kedro test``.
+"""
+from pathlib import Path
+
+import pytest
+
+from spaceflights.run import ProjectContext
 
 
-# get the dependencies and installs
-with open("requirements.txt", "r", encoding="utf-8") as f:
-    # Make sure we strip all comments and options (e.g "--extra-index-url")
-    # that arise from a modified pip.conf file that configure global options
-    # when running kedro build-reqs
-    requires = []
-    for line in f:
-        req = line.split("#", 1)[0].strip()
-        if req and not req.startswith("--"):
-            requires.append(req)
+@pytest.fixture
+def project_context():
+    return ProjectContext(str(Path.cwd()))
 
-setup(
-    name="spaceflights",
-    version="0.1",
-    packages=find_packages(exclude=["tests"]),
-    entry_points={"console_scripts": [entry_point]},
-    install_requires=requires,
-    extras_require={
-        "docs": [
-            "sphinx>=1.6.3, <2.0",
-            "sphinx_rtd_theme==0.4.1",
-            "nbsphinx==0.3.4",
-            "nbstripout==0.3.3",
-            "recommonmark==0.5.0",
-            "sphinx-autodoc-typehints==1.6.0",
-            "sphinx_copybutton==0.2.5",
-            "jupyter_client>=5.1.0, <6.0",
-            "tornado==6.1", # manually edited
-            "ipykernel==6.8.0", # manually edited
-        ]
-    },
-)
+
+class TestProjectContext:
+    def test_project_name(self, project_context):
+        assert project_context.project_name == "spaceflights"
+
+    def test_project_version(self, project_context):
+        assert project_context.project_version == "0.16.4"
