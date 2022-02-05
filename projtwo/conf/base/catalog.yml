@@ -6,12 +6,15 @@
 initialdata:
   type: pandas.CSVDataSet
   filepath: data/01_raw/UCI_Credit_Card.csv
+  layer: raw
 
 X_train:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/X_train.csv
+  layer: intermediate
 
 y_train:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/y_train.csv
+  layer: intermediate
 
