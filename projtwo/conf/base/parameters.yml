@@ -1,0 +1,4 @@
+
+splitting:
+  originaltarget: 'default.payment.next.month'
+  target: 'target'
