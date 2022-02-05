@@ -26,42 +26,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from setuptools import find_packages, setup
+"""Construction of the master pipeline.
+"""
 
-entry_point = (
-    "space = spaceflights.run:run_package"
-)
+# from typing import Dict
 
+from kedro.pipeline import Pipeline
 
-# get the dependencies and installs
-with open("requirements.txt", "r", encoding="utf-8") as f:
-    # Make sure we strip all comments and options (e.g "--extra-index-url")
-    # that arise from a modified pip.conf file that configure global options
-    # when running kedro build-reqs
-    requires = []
-    for line in f:
-        req = line.split("#", 1)[0].strip()
-        if req and not req.startswith("--"):
-            requires.append(req)
+from spaceflights.pipelines import dataprocessing as dp
+from spaceflights.pipelines import datascience as ds
 
-setup(
-    name="spaceflights",
-    version="0.1",
-    packages=find_packages(exclude=["tests"]),
-    entry_points={"console_scripts": [entry_point]},
-    install_requires=requires,
-    extras_require={
-        "docs": [
-            "sphinx>=1.6.3, <2.0",
-            "sphinx_rtd_theme==0.4.1",
-            "nbsphinx==0.3.4",
-            "nbstripout==0.3.3",
-            "recommonmark==0.5.0",
-            "sphinx-autodoc-typehints==1.6.0",
-            "sphinx_copybutton==0.2.5",
-            "jupyter_client>=5.1.0, <6.0",
-            "tornado==6.1", # manually edited
-            "ipykernel==6.8.0", # manually edited
-        ]
-    },
-)
+def create_pipelines(**kwargs):
+    """Create the project's pipeline.
+
+    Args:
+        kwargs: Ignore any additional arguments added in the future.
+
+    Returns:
+        A mapping from a pipeline name to a ``Pipeline`` object.
+
+    """
+
+    dataprocessing_pipeline = dp.create_pipeline()
+    datascience_pipeline = ds.create_pipeline()
+
+    return {"__default__": dataprocessing_pipeline + datascience_pipeline,
+            "dp": dataprocessing_pipeline, 
+            "ds": datascience_pipeline}
