@@ -34,6 +34,7 @@
 from kedro.pipeline import Pipeline
 
 from spaceflights.pipelines import dataprocessing as dp
+from spaceflights.pipelines import datascience as ds
 
 def create_pipelines(**kwargs):
     """Create the project's pipeline.
@@ -47,6 +48,8 @@ def create_pipelines(**kwargs):
     """
 
     dataprocessing_pipeline = dp.create_pipeline()
+    datascience_pipeline = ds.create_pipeline()
 
-    return {"__default__": dataprocessing_pipeline,
-            "dp": dataprocessing_pipeline}
+    return {"__default__": dataprocessing_pipeline + datascience_pipeline,
+            "dp": dataprocessing_pipeline, 
+            "ds": datascience_pipeline}
