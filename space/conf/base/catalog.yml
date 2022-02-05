@@ -8,23 +8,33 @@
 companies:
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
+  layer: raw
 
 reviews:
   type: pandas.CSVDataSet
   filepath: data/01_raw/reviews.csv
+  layer: raw
 
 shuttles:
   type: pandas.ExcelDataSet
   filepath: data/01_raw/shuttles.xlsx
+  layer: raw
 
 # intermediate
 
 preprocessed_companies:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/preprocessed_companies.parquet
+  layer: intermediate
 
 preprocessed_shuttles:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/preprocessed_shuttles.parquet
+  layer: intermediate
 
-
+# Dataset for regressor
+regressor:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/regressor.pickle
+  versioned: true
+  layer: model_output

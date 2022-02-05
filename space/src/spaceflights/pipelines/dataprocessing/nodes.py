@@ -50,3 +50,35 @@ def preprocess_shuttles(shuttles: pd.DataFrame) -> pd.DataFrame:
     shuttles["moon_clearance_complete"] = _is_true(shuttles["moon_clearance_complete"])
     shuttles["price"] = _parse_money(shuttles["price"])
     return shuttles
+
+
+#master_table to be processed
+
+def create_master_table(
+    shuttles: pd.DataFrame, companies: pd.DataFrame, reviews: pd.DataFrame
+) -> pd.DataFrame:
+    """Combines all data to create a master table.
+
+        Args:
+            shuttles: Preprocessed data for shuttles.
+            companies: Preprocessed data for companies.
+            reviews: Source data for reviews.
+        Returns:
+            Master table.
+
+    """
+    # merges shuttles with reviews
+    rated_shuttles = shuttles.merge(reviews, left_on="id", right_on="shuttle_id")
+
+    # merges shuttles_reviews with companies
+    with_companies = rated_shuttles.merge(
+        companies, left_on="company_id", right_on="id"
+    )
+
+    # drops irrelevant ids
+    master_table = with_companies.drop(["shuttle_id", "company_id"], axis=1)
+
+    # drop missing
+    master_table = master_table.dropna()
+    
+    return master_table
