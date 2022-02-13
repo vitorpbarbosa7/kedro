@@ -1,0 +1,49 @@
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://kedro.readthedocs.io/en/stable/04_user_guide/04_data_catalog.html
+
+alldata:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/alldata.csv
+  layer: raw
+
+X_dev:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/X_dev.csv
+  layer: intermediate
+
+y_dev:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/y_dev.csv
+  layer: intermediate
+
+X_train:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/X_train.csv
+  layer: intermediate
+
+X_test:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/X_test.csv
+  layer: intermediate
+
+y_train:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/y_train.csv
+  layer: intermediate
+
+y_test:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/y_test.csv
+  layer: intermediate
+
+train:
+ type: pandas.CSVDataSet
+ filepath: data/03_primary/train.csv
+ layer: primary
+
+test:
+ type: pandas.CSVDataSet
+ filepath: data/03_primary/test.csv
+ layer: primary
