@@ -39,11 +39,56 @@ y_test:
   layer: intermediate
 
 train:
- type: pandas.CSVDataSet
- filepath: data/03_primary/train.csv
- layer: primary
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/train.csv
+  layer: primary
 
 test:
- type: pandas.CSVDataSet
- filepath: data/03_primary/test.csv
- layer: primary
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/test.csv
+  layer: primary
+
+# Feature
+## train
+train_dropped:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/train_dropped.csv
+  layer: feature
+
+train_categorical:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/train_categorical.csv
+  layer: feature
+
+train_numeric:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/train_numeric.csv
+  layer: feature
+
+
+##test
+test_dropped:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/test_dropped.csv
+  layer: feature
+
+test_categorical:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/test_categorical.csv
+  layer: feature
+
+test_numeric:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/test_numeric.csv
+  layer: feature
+
+# Model Input
+train_joined_num_cat:
+  type: pandas.CSVDataSet
+  filepath: data/05_model_input/train_joined_num_cat.csv
+  layer: model_input
+
+test_joined_num_cat:
+  type: pandas.CSVDataSet
+  filepath: data/05_model_input/test_joined_num_cat.csv
+  layer: model_input
