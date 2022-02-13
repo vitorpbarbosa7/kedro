@@ -3,3 +3,11 @@ vars:
 
 preprocess:
   test_size: 0.3
+  dropvars: ['lot.frontage','misc.feature','pid','unnamed: 0']
+  
+  categoricalvars: ['MS.SubClass','MS.Zoning','Street','Alley',
+'Land.Contour','Lot.Config','Neighborhood','Condition.1',
+'Condition.2','Bldg.Type','House.Style','Roof.Style',
+'Roof.Matl','Exterior.1st','Exterior.2nd','Mas.Vnr.Type',
+'Foundation','Heating','Central.Air','Garage.Type','Sale.Type','Sale.Condition']
+
