@@ -11,76 +11,158 @@ from sklearn.model_selection import train_test_split as _train_test_split
 def _intersection(*args:set):
     return set.intersection(args)
 
+class MultiColumnLabelEncoder:
+    def __init__(self,columns = None):
+        self.columns = columns # array of column names to encode
+
+    def fit(self,X,y=None):
+        return self # not relevant here
+
+    def transform(self,X):
+        '''
+        Transforms columns of X specified in self.columns using
+        LabelEncoder(). If no columns specified, transforms all
+        columns in X.
+        '''
+        output = X.copy()
+        if self.columns is not None:
+            for col in self.columns:
+                output[col] = LabelEncoder().fit_transform(output[col])
+        else:
+            for colname,col in output.iteritems():
+                output[colname] = LabelEncoder().fit_transform(col)
+        return output
+
+    def fit_transform(self,X,y=None):
+        return self.fit(X,y).transform(X)
+
 # Nodes
 class ProcessFeatures():
-    def __init__(self, df: pd.DataFrame, catvars):
-        self.catvars = catvars
+    def __init__(self, df: pd.DataFrame, vars):
+        self.vars = vars
         self.df = df
 
     # setter : set vars
     def set_vars(self):
-        _varlist = self.catvars
+        _varlist = self.vars
         _varlist = [_col.lower() for _col in _varlist]
 
-        self.catvars = _intersection(set(_varlist), set(list(self.df)))
+        self.vars = _intersection(set(_varlist), set(list(self.df)))
 
     def get_vars(self, df):
         return self.vars
 
 class ProcessCategorical(ProcessFeatures):
-    def __init__(self, df: pd.DataFrame, catvars):
-        self.catvars = catvars
+    def __init__(self, df: pd.DataFrame, vars):
+        self.vars = vars
         self.df = df
-
         # all vars are categoricals, so I can convert all to categorical
-        self.df_categorical = self.df[self.catvars]
+        self.df_categorical = self.df[self.vars]
         self.df_categorical = self.df_categorical.astype(str)
 
 class Features(ABC):
-    @abstractmethod
-    def features(self, df:pd.DataFrame, varlist:str):
-        pass
+    def __init__(self, df:pd.DataFrame, single_var_list:list):
+        self.df = df
+        self.single_var_list = single_var_list
+        
+        self._df = self.df[self.single_var_list]
+
 class Dummies(Features):
-    def features(self, df:pd.DataFrame, varlist:str):
-        _df = df[varlist]
-        return pd.get_dummies(data = _df)
-class Encoded(Features):
-    def features(self, df:pd.DataFrame, varlist:str):
-        le = LabelEncoder()
-        _df = df[varlist]
-        le.fit(_df)
-        return le.transform(_df)
+    def features(self):
+        return pd.get_dummies(data = self._df)
+class Ordinals(Features):
+    def features(self):
+        le = MultiColumnLabelEncoder()
+        return le.fit_transform(self._df)
 
+# concatenate every dataframe which received transformation
 class AllFeatures:
-    @abstractmethod
-    def get_all_features(df, varlist):
+    def get_all_features(df:pd.DataFrame, varlist:list):
         # concatenar conjunto de Features, pode ser nominal, dummy, o que for, eh tudo derivado de Features
-        return pd.concat(feature_set.features(df, varlist) for feature_set in Features.__subclasses__())
+        # dataframe is the same but the varlist is different
+        return pd.concat(feature_set(df = df, single_var_list= vars).features() for feature_set,vars in zip(Features.__subclasses__(),varlist))
 
-
-def process_categoricals(df: pd.DataFrame, catvars):
-
-    _process_categoricals = ProcessCategorical(df = df, catvars = catvars)
+# The node function
+def process_categoricals(df: pd.DataFrame, vars, varlist):
+    _process_categoricals = ProcessCategorical(df = df, vars = vars)
 
     # categorical dataframe:
     df_cat = _process_categoricals.df_categorical
 
-    # agora soh precisamos juntar a lista de dummies e encoded, mas a lista eh diferente
+    save = AllFeatures.get_all_features(df, varlist)
 
-    return print(_process_categoricals.df_categorical)
+    # PARA DEBUGAR
+    save.to_csv('../../../../data/test_SOLID')
+
+    return save
 
 if __name__ == '__main__':
-    import pandas as pd
 
+    # tudo isso aqui seriam parametros
     df = pd.read_csv('../../../../data/01_raw/alldata.csv')
 
-    catvars = ['MS.SubClass','MS.Zoning','Street','Alley',
+    vars = ['MS.SubClass','MS.Zoning','Street','Alley',
         'Land.Contour','Lot.Config','Neighborhood','Condition.1',
         'Condition.2','Bldg.Type','House.Style','Roof.Style',
         'Roof.Matl','Exterior.1st','Exterior.2nd','Mas.Vnr.Type',
         'Foundation','Heating','Central.Air','Garage.Type','Sale.Type','Sale.Condition']
 
-    process_categoricals(df = df, catvars=catvars)
+    dummies = ['MS.SubClass','MS.Zoning','Street','Alley']
+
+    ordinals = ['Land.Contour','Lot.Config','Neighborhood','Condition.1',
+        'Condition.2','Bldg.Type','House.Style','Roof.Style',
+        'Roof.Matl','Exterior.1st','Exterior.2nd','Mas.Vnr.Type',
+        'Foundation','Heating','Central.Air','Garage.Type','Sale.Type','Sale.Condition']
+
+    varlist = [dummies, ordinals]
+
+    print(process_categoricals(df, vars = vars, varlist = varlist))
+
+
+
+
+
+
+
+
+# def process_categoricals(df: pd.DataFrame, vars, dummies, ordinals):
+
+#     _process_categoricals = ProcessCategorical(df = df, vars = vars)
+
+#     # categorical dataframe:
+#     df_cat = _process_categoricals.df_categorical
+
+#     # agora soh precisamos juntar a lista de dummies e Ordinals, mas a lista eh diferente
+#     dummie = Dummies()
+#     dummie.features(df_cat, varlist = dummies)
+#     # future inmplement intersection, set , something like this, exclusion
+#     ordinals = Ordinals()
+#     ordinals.features(df_cat, varlist = ordinals)
+
+
+
+
+#     return print(_process_categoricals.df_categorical)
+
+# if __name__ == '__main__':
+#     import pandas as pd
+
+#     df = pd.read_csv('../../../../data/01_raw/alldata.csv')
+
+#     vars = ['MS.SubClass','MS.Zoning','Street','Alley',
+#         'Land.Contour','Lot.Config','Neighborhood','Condition.1',
+#         'Condition.2','Bldg.Type','House.Style','Roof.Style',
+#         'Roof.Matl','Exterior.1st','Exterior.2nd','Mas.Vnr.Type',
+#         'Foundation','Heating','Central.Air','Garage.Type','Sale.Type','Sale.Condition']
+
+#     dummies = ['MS.SubClass','MS.Zoning','Street','Alley']
+
+#     ordinals = ['Land.Contour','Lot.Config','Neighborhood','Condition.1',
+#         'Condition.2','Bldg.Type','House.Style','Roof.Style',
+#         'Roof.Matl','Exterior.1st','Exterior.2nd','Mas.Vnr.Type',
+#         'Foundation','Heating','Central.Air','Garage.Type','Sale.Type','Sale.Condition']
+
+#     process_categoricals(df = df, vars=vars, dummies = dummies, ordinals = ordinals)
 
 
 
@@ -97,7 +179,7 @@ if __name__ == '__main__':
 
 
 # class ProcessNumeric(ProcessFeatures):
-#     def __init__(self, df: pd.DataFrame, catvars):
+#     def __init__(self, df: pd.DataFrame, vars):
 #         self.parameters = parameters
 #         self.vartype = vartype
 #         self.df = df
