@@ -80,9 +80,11 @@ class AllFeatures:
     def get_all_features(df:pd.DataFrame, varlist:list):
         # concatenar conjunto de Features, pode ser nominal, dummy, o que for, eh tudo derivado de Features
         # dataframe is the same but the varlist is different
-        return pd.concat(feature_set(df = df, single_var_list= vars).features() for feature_set,vars in zip(Features.__subclasses__(),varlist))
+        # generator expression must be in parentheses
+        return pd.concat((feature_set(df = df, single_var_list= vars).features() for feature_set,vars in zip(Features.__subclasses__(),varlist)),
+        axis=1)
 
-# The node function
+# The node function after implementing those classes
 def process_categoricals(df: pd.DataFrame, vars, varlist):
     _process_categoricals = ProcessCategorical(df = df, vars = vars)
 
