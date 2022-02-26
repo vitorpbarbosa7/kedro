@@ -62,6 +62,11 @@ def process_categoricals(df: pd.DataFrame, catvars):
 
     _process_categoricals = ProcessCategorical(df = df, catvars = catvars)
 
+    # categorical dataframe:
+    df_cat = _process_categoricals.df_categorical
+
+    # agora soh precisamos juntar a lista de dummies e encoded, mas a lista eh diferente
+
     return print(_process_categoricals.df_categorical)
 
 if __name__ == '__main__':
