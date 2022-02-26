@@ -13,20 +13,28 @@ def _intersection(*args:set):
 
 # Nodes
 class ProcessFeatures():
-    def __init__(self, df: pd.DataFrame, parameters:Dict, vartype:str):
-        self.parameters = parameters
-        self.vartype = vartype
+    def __init__(self, df: pd.DataFrame, catvars):
+        self.catvars = catvars
         self.df = df
 
     # setter : set vars
     def set_vars(self):
-        _varlist = self.parameters['preprocess'][self.vartype]
+        _varlist = self.catvars
         _varlist = [_col.lower() for _col in _varlist]
 
-        self.vars = _intersection(set(_varlist), set(list(self.df)))
+        self.catvars = _intersection(set(_varlist), set(list(self.df)))
 
     def get_vars(self, df):
         return self.vars
+
+class ProcessCategorical(ProcessFeatures):
+    def __init__(self, df: pd.DataFrame, catvars):
+        self.catvars = catvars
+        self.df = df
+
+        # all vars are categoricals, so I can convert all to categorical
+        self.df_categorical = self.df[self.catvars]
+        self.df_categorical = self.df_categorical.astype(str)
 
 class Features(ABC):
     @abstractmethod
@@ -43,42 +51,31 @@ class Encoded(Features):
         le.fit(_df)
         return le.transform(_df)
 
-class ProcessCategorical(ProcessFeatures):
-    def __init__(self, df: pd.DataFrame, parameters:Dict, vartype:str):
-        self.parameters = parameters
-        self.vartype = vartype
-        self.df = df
-
-        # all vars are categoricals, so I can convert all to categorical
-        self.df_categorical = self.df[self.vars]
-        self.df_categorical = self.df_categorical.astype(str)
-
-
 class AllFeatures:
     @abstractmethod
     def get_all_features(df, varlist):
         # concatenar conjunto de Features, pode ser nominal, dummy, o que for, eh tudo derivado de Features
-        return pd.concat(feature_set.features(df, varlist) for feature_set in Features.__subclasses__()))
+        return pd.concat(feature_set.features(df, varlist) for feature_set in Features.__subclasses__())
 
 
-def process_categoricals(df: pd.DataFrame, parameters:Dict, vartype:str):
+def process_categoricals(df: pd.DataFrame, catvars):
 
-    _process_categoricals = ProcessCategorical(df = df, parameters = parameters, vartype = vartype)
+    _process_categoricals = ProcessCategorical(df = df, catvars = catvars)
+
+    return print(_process_categoricals.df_categorical)
 
 if __name__ == '__main__':
-    from kedro import catalog
+    import pandas as pd
 
-    df = catalog.load('alldata')
+    df = pd.read_csv('../../../../data/01_raw/alldata.csv')
 
-    # df = pd.read_csv('../../../../data/01_raw/alldata.csv')
+    catvars = ['MS.SubClass','MS.Zoning','Street','Alley',
+        'Land.Contour','Lot.Config','Neighborhood','Condition.1',
+        'Condition.2','Bldg.Type','House.Style','Roof.Style',
+        'Roof.Matl','Exterior.1st','Exterior.2nd','Mas.Vnr.Type',
+        'Foundation','Heating','Central.Air','Garage.Type','Sale.Type','Sale.Condition']
 
-    process_categoricals(df = df, )
-
-
-
-
-
-
+    process_categoricals(df = df, catvars=catvars)
 
 
 
@@ -86,13 +83,21 @@ if __name__ == '__main__':
 
 
 
-class ProcessNumeric(ProcessFeatures):
-    def __init__(self, df: pd.DataFrame, parameters:Dict, vartype:str):
-        self.parameters = parameters
-        self.vartype = vartype
-        self.df = df
 
-AllFeatures.get_all_features(self, )
+
+
+
+
+
+
+
+# class ProcessNumeric(ProcessFeatures):
+#     def __init__(self, df: pd.DataFrame, catvars):
+#         self.parameters = parameters
+#         self.vartype = vartype
+#         self.df = df
+
+# AllFeatures.get_all_features(self, )
 
 
 
