@@ -76,6 +76,7 @@ class Ordinals(Features):
         return le.fit_transform(self._df)
 
 # concatenate every dataframe which received transformation
+# is this a builder to build the building blocks of features?
 class AllFeatures:
     def get_all_features(df:pd.DataFrame, varlist:list):
         # concatenar conjunto de Features, pode ser nominal, dummy, o que for, eh tudo derivado de Features
