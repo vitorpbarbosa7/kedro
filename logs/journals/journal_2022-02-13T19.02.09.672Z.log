@@ -1,1 +1,0 @@
-{"type": "ContextJournalRecord", "run_id": "2022-02-13T19.02.09.672Z", "project_path": "/media/vpb/GD_/USP/DS/01Git/00_cursos_gerais/26_kedro/ameshouse/ames", "env": "local", "kedro_version": "0.16.4", "tags": [], "from_nodes": [], "to_nodes": [], "node_names": [], "from_inputs": [], "load_versions": {}, "pipeline_name": null, "extra_params": {}, "git_sha": "318f5f1"}
