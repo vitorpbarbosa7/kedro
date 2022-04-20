@@ -1,0 +1,9 @@
+kedro==0.18.0
+kedro-viz
+pandas
+seaborn
+matplotlib
+statsmodels
+plotnine
+numpy
+scikit-learn
