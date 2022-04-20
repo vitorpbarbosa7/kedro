@@ -3,6 +3,11 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/04_user_guide/04_data_catalog.html
 
+query:
+  type: text.TextDataSet
+  filepath: data/01_raw/queries/query.sql
+  layer: raw
+
 alldata:
   type: pandas.CSVDataSet
   filepath: data/01_raw/alldata.csv
