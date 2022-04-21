@@ -6,7 +6,6 @@ generated using Kedro 0.18.0
 from kedro.pipeline import Pipeline, node, pipeline
 
 from .nodes import make_predictions, report_accuracy, split_data
-from .nodes import make_scatter_plot
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
