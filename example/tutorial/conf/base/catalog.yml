@@ -12,6 +12,6 @@ y_test:
   versioned: true
 
 y_pred:
-  type: PickleLocalDataSet
+  type: pickle.PickleDataSet
   filepath: data/tests/y_pred.pkl
   versioned: true
