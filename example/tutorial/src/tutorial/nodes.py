@@ -25,7 +25,7 @@ def make_scatter_plot(df:pd.DataFrame):
 
 def split_data(
     data: pd.DataFrame, parameters: Dict[str, Any]
-) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Splits data into features and target training and test sets.
 
     Args:
@@ -42,8 +42,8 @@ def split_data(
 
     X_train = data_train.drop(columns=parameters["target_column"])
     X_test = data_test.drop(columns=parameters["target_column"])
-    y_train = data_train[parameters["target_column"]]
-    y_test = data_test[parameters["target_column"]]
+    y_train = pd.DataFrame(data_train[parameters["target_column"]])
+    y_test = pd.DataFrame(data_test[parameters["target_column"]])
 
     log.info(f'y_train data type: {type(y_train)}')
 
@@ -51,8 +51,8 @@ def split_data(
 
 
 def make_predictions(
-    X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series
-) -> pd.Series:
+    X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.DataFrame
+) -> pd.DataFrame:
     """Uses 1-nearest neighbour classifier to create predictions.
 
     Args:
@@ -77,7 +77,7 @@ def make_predictions(
     return y_pred
 
 
-def report_accuracy(y_pred: pd.Series, y_test: pd.Series):
+def report_accuracy(y_pred: pd.DataFrame, y_test: pd.DataFrame):
     """Calculates and logs the accuracy.
 
     Args:
