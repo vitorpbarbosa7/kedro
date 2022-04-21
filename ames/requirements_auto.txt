@@ -69,6 +69,7 @@ jupyter-client==6.1.12
 jupyter-core==4.10.0
 jupyterlab-pygments==0.2.2
 kedro==0.18.0
+kedro-viz==4.4.0
 kiwisolver==1.4.2
 MarkupSafe==2.0.1
 matplotlib==3.5.1
