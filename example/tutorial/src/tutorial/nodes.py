@@ -10,6 +10,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+log = logging.getLogger(__name__)
+
 def make_scatter_plot(df:pd.DataFrame):
     fg, ax = plt.subplots()
     for i, spec in enumerate(list(df['species'].unique())):
@@ -42,6 +44,8 @@ def split_data(
     X_test = data_test.drop(columns=parameters["target_column"])
     y_train = data_train[parameters["target_column"]]
     y_test = data_test[parameters["target_column"]]
+
+    log.info(f'y_train data type: {type(y_train)}')
 
     return X_train, X_test, y_train, y_test
 
