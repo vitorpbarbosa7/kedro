@@ -157,3 +157,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+./data/01_raw/Jan_2020_ontime.csv
+./data/01_raw/Jan_2019_ontime.csv
