@@ -11,3 +11,15 @@ ontime_2019_by_day:
   type: PartitionedDataSet
   path: data/01_raw/ontime_2019_by_day
   dataset: pandas.CSVDataSet
+
+ontime_2019_incremental:
+  type: IncrementalDataSet
+  path: data/01_raw/incremental
+  dataset: pandas.CSVDataSet
+  filename_suffix: .csv
+
+ontime_2019_calc:
+  type: IncrementalDataSet
+  path: data/02_intermediate/calc
+  dataset: kedro.extras.datasets.text.TextDataSet
+  filename_suffix: .txt
