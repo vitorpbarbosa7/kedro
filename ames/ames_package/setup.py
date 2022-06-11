@@ -19,7 +19,7 @@ with open("requirements.txt", encoding="utf-8") as f:
 setup(
     name="package_ames",
     version="0.1",
-    packages=["package_ames", "package_ames/ames", "package_ames/ames/pipelines", "package_ames/ames/pipelines/dataprocessing_dev"],
+    packages=find_packages(),
     include_package_data=True,
     entry_points={"console_scripts": [entry_point]},
     install_requires=requires,

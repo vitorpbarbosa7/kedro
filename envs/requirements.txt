@@ -1,7 +1,0 @@
-
-pandas
-matplotlib
-seaborn
-statsmodels
-numpy
-plotnine
