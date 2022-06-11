@@ -1,0 +1,5 @@
+include-recursively *.toml
+include-recursively *.yml
+include-recursively *.csv
+include-recursively data/**/*
+include-recursively conf/**/*
