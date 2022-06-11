@@ -15,7 +15,7 @@ known_third_party = "kedro"
 [tool.pytest.ini_options]
 addopts = """
 --cov-report term-missing \
---cov src/ames -ra"""
+--cov ames -ra"""
 
 [tool.coverage.report]
 fail_under = 0
