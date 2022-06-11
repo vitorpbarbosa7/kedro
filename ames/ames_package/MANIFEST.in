@@ -4,3 +4,4 @@ recursive-include package_ames/ *.csv
 recursive-include package_ames/ *.cfg
 recursive-include package_ames/ data/**/*
 recursive-include package_ames/ conf/**/*
+recursive-include package_ames/ *.log
