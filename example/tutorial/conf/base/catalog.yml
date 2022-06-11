@@ -1,0 +1,17 @@
+example_iris_data:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/iris.csv
+
+X_train:
+  type: kedro.extras.datasets.pandas.ParquetDataSet
+  filepath: data/02_intermediate/X_train.parquet
+
+y_test:
+  type: pandas.ParquetDataSet
+  filepath: data/tests/y_test.parquet
+  versioned: true
+
+y_pred:
+  type: pickle.PickleDataSet
+  filepath: data/tests/y_pred.pkl
+  versioned: true

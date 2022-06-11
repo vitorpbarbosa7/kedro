@@ -1,0 +1,25 @@
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
+
+ontime_2019:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/Jan_2019_ontime.csv
+
+ontime_2019_by_day:
+  type: PartitionedDataSet
+  path: data/01_raw/ontime_2019_by_day
+  dataset: pandas.CSVDataSet
+
+ontime_2019_incremental:
+  type: IncrementalDataSet
+  path: data/01_raw/incremental
+  dataset: pandas.CSVDataSet
+  filename_suffix: .csv
+
+ontime_2019_calc:
+  type: IncrementalDataSet
+  path: data/02_intermediate/calc
+  dataset: kedro.extras.datasets.text.TextDataSet
+  filename_suffix: .txt

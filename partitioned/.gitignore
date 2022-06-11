@@ -65,7 +65,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-#build/
+build/
 develop-eggs/
 dist/
 downloads/
@@ -157,7 +157,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-./partitioned/data/01_raw/Jan_2020_ontime.csv
-./partitioned/data/01_raw/Jan_2019_ontime.csv
-./partitioned/data/01_raw/Jan_2020_ontime.csv
-./partitioned/data/01_raw/Jan_2019_ontime.csv
+./data/01_raw/Jan_2020_ontime.csv
+./data/01_raw/Jan_2019_ontime.csv
