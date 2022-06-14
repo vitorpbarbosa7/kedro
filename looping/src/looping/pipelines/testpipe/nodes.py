@@ -1,7 +1,4 @@
-def entry_node(starter_point:str) -> str:
-
-    return 'entry_point'
-
+import pandas as pd
 
 def return_value(entry_point:str, value:str) -> str:
 

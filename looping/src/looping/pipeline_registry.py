@@ -5,7 +5,11 @@ from kedro.pipeline import Pipeline, pipeline
 
 from looping.pipelines.testpipe import looping_pipe
 
-auto_pipeline = looping_pipe()
+
+import pandas as pd
+datas = pd.read_csv('data/01_raw/data.csv')
+
+auto_pipeline = looping_pipe(datas)
 
 
 def register_pipelines() -> Dict[str, Pipeline]:

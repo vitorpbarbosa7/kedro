@@ -3,14 +3,10 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
 
-starter_piont:
-  type: text.TextDataSet
-  filepath: data/01_raw/starter_point.txt
-
-entry_point:
-  type: text.TextDataSet
-  filepath: data/01_raw/entry_point.txt
-
 data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/data.csv
+
+starter_point:
+  type: text.TextDataSet
+  filepath: data/01_raw/starter_point.txt
