@@ -11,7 +11,7 @@ def simple_pipe() -> Pipeline:
         [
             node(
                 func = return_value,
-                inputs = ['starter_point','value'],
+                inputs = 'value',
                 outputs = 'value_output',
                 name = 'return_row'
             )
@@ -47,9 +47,8 @@ def looping_pipe(data:pd.DataFrame) -> Pipeline:
 
         intermediary_pipeline = ModularPipeline(
             pipe = simple_pipe_template,
-            inputs = {'starter_point':'starter_point',
-                        'value': pipeline_key},
-            # outputs = {'value_output': pipeline_key},
+            inputs = {'value': pipeline_key},
+            outputs = {'value_output': f"{pipeline_key}_out"},
             namespace = pipeline_key
         )
 
