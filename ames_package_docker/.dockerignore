@@ -1,4 +1,6 @@
 .git
+*.csv
+*.parquet
 **/*build/
 **/*dist/
 
