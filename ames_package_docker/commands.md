@@ -7,8 +7,10 @@ Linux uses systemctl or sudo service
 
 # Docker images and Containers
 if you export container_name and image_name, you will thank me later:
+```bash
 export image_name=my_docker_image
 export container_name=my_docker_container
+```
 
 #### List docker images (built from Dockerfiles ow directly from some image at DockerHub):
 ```bash
