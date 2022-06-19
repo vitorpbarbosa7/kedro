@@ -1,0 +1,99 @@
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://kedro.readthedocs.io/en/stable/04_user_guide/04_data_catalog.html
+
+query:
+  type: text.TextDataSet
+  filepath: data/01_raw/queries/query.sql
+  layer: raw
+
+alldata:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/alldata.csv
+  layer: raw
+
+X_dev:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/X_dev.csv
+  layer: intermediate
+
+y_dev:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/y_dev.csv
+  layer: intermediate
+
+X_train:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/X_train.csv
+  layer: intermediate
+
+X_test:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/X_test.csv
+  layer: intermediate
+
+y_train:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/y_train.csv
+  layer: intermediate
+
+y_test:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/y_test.csv
+  layer: intermediate
+
+train:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/train.csv
+  layer: primary
+
+test:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/test.csv
+  layer: primary
+
+# Feature
+## train
+train_dropped:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/train_dropped.csv
+  layer: feature
+
+train_categorical:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/train_categorical.csv
+  layer: feature
+
+train_numeric:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/train_numeric.csv
+  layer: feature
+
+
+##test
+test_dropped:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/test_dropped.csv
+  layer: feature
+
+test_categorical:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/test_categorical.csv
+  layer: feature
+
+test_numeric:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/test_numeric.csv
+  layer: feature
+
+# Model Input
+train_joined_num_cat:
+  type: pandas.CSVDataSet
+  filepath: data/05_model_input/train_joined_num_cat.csv
+  layer: model_input
+
+test_joined_num_cat:
+  type: pandas.CSVDataSet
+  filepath: data/05_model_input/test_joined_num_cat.csv
+  layer: model_input
