@@ -71,6 +71,6 @@ docker build -t $image_name . && docker stop $container_name && docker rm $conta
 
 ### Docker image delete:
 ```bash
-docker images | $image_name | xargs docker image rm
+docker image rm $image_name
 ```
 
