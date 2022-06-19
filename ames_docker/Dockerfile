@@ -10,10 +10,7 @@ COPY kedro_api/ kedro_api/
 
 # command to run on start:
 
-EXPOSE 4141
-
 WORKDIR /code/kedro_api
 
-CMD ["kedro","viz"]
-
+ENTRYPOINT ["/bin/bash","entrypoint.sh"]
 
