@@ -7,10 +7,8 @@ Linux uses systemctl or sudo service
 
 # Docker images and Containers
 if you export container_name and image_name, you will thank me later:
-```bash
 export image_name=my_docker_image
 export container_name=my_docker_container
-```
 
 #### List docker images (built from Dockerfiles ow directly from some image at DockerHub):
 ```bash
@@ -56,7 +54,7 @@ docker stop $container_name && docker rm $container_name
 
 #### So useful command would be:
 ```bash
-docker stop $container_name && docker rm $container_name && docker run -itd --name $container_name $image_name
+docker stop $container_name && docker rm $container_name && docker run -itd --name $container_name $image_name && docker start -i $container_name
 ```
 #### and also even more useful command, which adds/alter the layers from the docker image after altered the dockerfile:
 ```bash
@@ -73,4 +71,3 @@ docker build -t $image_name . && docker stop $container_name && docker rm $conta
 ```bash
 docker image rm $image_name
 ```
-
