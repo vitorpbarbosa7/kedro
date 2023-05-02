@@ -6,9 +6,13 @@ metadata = bootstrap_project(Path.cwd())
 
 print(f'\nProject metadata : \n {metadata}')
 
+# overriding parameters
+parameters = {'x':7}
+
 with KedroSession.create(
     
-            package_name = metadata.package_name) as session:
+            package_name = metadata.package_name,
+            extra_params=parameters) as session:
     
     context = session.load_context()
 
