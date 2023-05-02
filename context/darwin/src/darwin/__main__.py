@@ -1,5 +1,5 @@
-"""partitioned file for ensuring the package is executable
-as `partitioned` and `python -m partitioned`
+"""darwin file for ensuring the package is executable
+as `darwin` and `python -m darwin`
 """
 import importlib
 from pathlib import Path

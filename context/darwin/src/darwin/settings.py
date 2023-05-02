@@ -3,14 +3,14 @@ from the Kedro defaults. For further information, including these default values
 https://kedro.readthedocs.io/en/stable/kedro_project_setup/settings.html."""
 
 # Instantiated project hooks.
-# from partitioned.hooks import ProjectHooks
+# from darwin.hooks import ProjectHooks
 # HOOKS = (ProjectHooks(),)
 
 # Installed plugins for which to disable hook auto-registration.
 # DISABLE_HOOKS_FOR_PLUGINS = ("kedro-viz",)
 
 # Class that manages storing KedroSession data.
-# from kedro.framework.session.store import ShelveStore
+# from kedro.framework.session.shelvestore import ShelveStore
 # SESSION_STORE_CLASS = ShelveStore
 # Keyword arguments to pass to the `SESSION_STORE_CLASS` constructor.
 # SESSION_STORE_ARGS = {
@@ -25,11 +25,13 @@ https://kedro.readthedocs.io/en/stable/kedro_project_setup/settings.html."""
 # CONF_SOURCE = "conf"
 
 # Class that manages how configuration is loaded.
-# from kedro.config import TemplatedConfigLoader
-# CONFIG_LOADER_CLASS = TemplatedConfigLoader
+# CONFIG_LOADER_CLASS = ConfigLoader
 # Keyword arguments to pass to the `CONFIG_LOADER_CLASS` constructor.
 # CONFIG_LOADER_ARGS = {
-#     "globals_pattern": "*globals.yml",
+#       "config_patterns": {
+#           "spark" : ["spark*/"],
+#           "parameters": ["parameters*", "parameters*/**", "**/parameters*"],
+#       }
 # }
 
 # Class that manages the Data Catalog.

@@ -1,8 +1,8 @@
-# partitioned
+# darwin
 
 ## Overview
 
-This is your new Kedro project, which was generated using `Kedro 0.18.0`.
+This is your new Kedro project, which was generated using `Kedro 0.18.5`.
 
 Take a look at the [Kedro documentation](https://kedro.readthedocs.io) to get started.
 

@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 entry_point = (
-    "partitioned = partitioned.__main__:main"
+    "darwin = darwin.__main__:main"
 )
 
 
@@ -17,7 +17,7 @@ with open("requirements.txt", encoding="utf-8") as f:
             requires.append(req)
 
 setup(
-    name="partitioned",
+    name="darwin",
     version="0.1",
     packages=find_packages(exclude=["tests"]),
     entry_points={"console_scripts": [entry_point]},
@@ -29,11 +29,11 @@ setup(
             "sphinx_rtd_theme==0.5.1",
             "nbsphinx==0.8.1",
             "nbstripout~=0.4",
-            "recommonmark==0.7.1",
             "sphinx-autodoc-typehints==1.11.1",
             "sphinx_copybutton==0.3.1",
             "ipykernel>=5.3, <7.0",
             "Jinja2<3.1.0",
+            "myst-parser~=0.17.2",
         ]
     },
 )

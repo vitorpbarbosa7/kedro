@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# partitioned documentation build
+# darwin documentation build
 # configuration file, created by sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its
@@ -20,13 +20,12 @@
 import re
 
 from kedro.framework.cli.utils import find_stylesheets
-from recommonmark.transform import AutoStructify
 
-from partitioned import __version__ as release
+from darwin import __version__ as release
 
 # -- Project information -----------------------------------------------------
 
-project = "partitioned"
+project = "darwin"
 author = "Kedro"
 
 # The short X.Y version.
@@ -53,7 +52,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.mathjax",
     "nbsphinx",
-    "recommonmark",
+    "myst_parser",
     "sphinx_copybutton",
 ]
 
@@ -120,7 +119,7 @@ html_show_sourcelink = False
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "partitioneddoc"
+htmlhelp_basename = "darwindoc"
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -148,8 +147,8 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "partitioned.tex",
-        "partitioned Documentation",
+        "darwin.tex",
+        "darwin Documentation",
         "Kedro",
         "manual",
     )
@@ -162,8 +161,8 @@ latex_documents = [
 man_pages = [
     (
         master_doc,
-        "partitioned",
-        "partitioned Documentation",
+        "darwin",
+        "darwin Documentation",
         [author],
         1,
     )
@@ -177,11 +176,11 @@ man_pages = [
 texinfo_documents = [
     (
         master_doc,
-        "partitioned",
-        "partitioned Documentation",
+        "darwin",
+        "darwin Documentation",
         author,
-        "partitioned",
-        "Project partitioned codebase.",
+        "darwin",
+        "Project darwin codebase.",
         "Data-Science",
     )
 ]
@@ -223,6 +222,3 @@ def setup(app):
     # add Kedro stylesheets
     for stylesheet in find_stylesheets():
         app.add_css_file(stylesheet)
-    # enable rendering RST tables in Markdown
-    app.add_config_value("recommonmark_config", {"enable_eval_rst": True}, True)
-    app.add_transform(AutoStructify)
