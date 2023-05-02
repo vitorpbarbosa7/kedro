@@ -2,9 +2,26 @@ from kedro.framework.session import KedroSession
 from kedro.framework.startup import bootstrap_project
 from pathlib import Path
 
-print(Path.cwd())
+metadata = bootstrap_project(Path.cwd())
 
-bootstrap_project(Path.cwd())
-with KedroSession.create() as session:
-    session.run()
+print(f'\nProject metadata : \n {metadata}')
+
+with KedroSession.create(
+    
+            package_name = metadata.package_name) as session:
+    
+    context = session.load_context()
+
+    print(f'\nContext: \n {context}')
+    print(dir(context))
+
+    catalog = context.catalog
+    parameters = context.params
+
+    print(f'\nCatalog: \n {catalog}')
+    print(dir(catalog))
+
+    print(f'\nParameters: \n {parameters}')
+
+    session.run(pipeline_name='pc')
 
