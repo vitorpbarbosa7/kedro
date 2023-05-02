@@ -8,7 +8,7 @@ def create_pipeline(**kwargs):
 
         node(
             func = print_param,
-            inputs = 'params:x',
+            inputs = ['params:x','toy'],
             outputs = None,
             name = 'node_context'
         )
