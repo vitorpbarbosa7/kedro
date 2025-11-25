@@ -14,7 +14,7 @@ loader = OmegaConfigLoader(
     },
     merge_strategy={
         # SOFT merge → deep/recursive merge for these sections
-        "parameters": "destructive",
+        "parameters": "soft",
         "catalog": "soft",
         # this one stays destructive (replace whole top-level key)
         "credentials": "destructive",
