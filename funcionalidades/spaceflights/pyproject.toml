@@ -11,11 +11,15 @@ dependencies = [
     "ipython>=8.10",
     "jupyterlab>=3.0",
     "notebook",
-    "kedro[jupyter]~=1.0.0",
-    "kedro-datasets[matplotlib-matplotlibwriter,pandas-csvdataset,pandas-exceldataset,pandas-parquetdataset,plotly-jsondataset,plotly-plotlydataset]>=3.0",
+    "kedro==1.0.0",
+    "kedro-datasets[matplotlib,matplotlib-matplotlibwriter,pandas-csvdataset,pandas-exceldataset,pandas-parquetdataset,plotly-jsondataset,plotly-plotlydataset]>=3.0",
     "kedro-viz>=6.7.0",
     "scikit-learn~=1.5.1",
     "seaborn~=0.12.1",
+    "matplotlib>=3.9.4",
+    "plotnine>=0.13.6",
+    "statsmodels>=0.14.5",
+    "scipy>=1.13.1",
 ]
 
 [project.scripts]
