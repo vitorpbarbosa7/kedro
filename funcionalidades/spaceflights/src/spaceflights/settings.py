@@ -37,8 +37,8 @@ CONFIG_LOADER_ARGS = {
       }
 }
 
-from spaceflights.hooks import DebugHooks
-HOOKS = (DebugHooks(),)
+from spaceflights.hooks import DebugHooks, MonitoringHooks
+HOOKS = (DebugHooks(),MonitoringHooks())
 
 # Class that manages Kedro's library components.
 # from kedro.framework.context import KedroContext
